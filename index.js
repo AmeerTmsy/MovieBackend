@@ -11,9 +11,16 @@ const authRoutes = require('./routes/authRoutes')
 const cors = require('cors')
 const mongoose = require('mongoose');
 
+const allowedOrigins = [
+  'http://localhost:5174',
+  'http://localhost:5173',
+  'https://movie-frontend-kohl-nine.vercel.app'
+];
+
 app.use(cors({
   credentials: true,
-  origin: true
+  origin: allowedOrigins
+  // origin: process.env.ENVIRONMENT === "development" ? 'http://localhost:5174' : 'https://movie-frontend-kohl-nine.vercel.app'
 }));
 app.use(express.json());
 app.use(cookieParser())
