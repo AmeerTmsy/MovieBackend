@@ -20,7 +20,7 @@ const login = async (req, res) => {
     if(passwordsMatch){
         var token = jwt.sign({ _id: user._id, email: user.email, name: user.name }, process.env.TOKEN_SECRET_KEY);
         
-        res.cookie('token', token, {httpOnly: true, secure: process.env.ENVIRONMENT === "development" ? false : true, maxAge: 1*60*60*1000})
+        res.cookie('token', token, {httpOnly: true, secure: process.env.ENVIRONMENT === "development" ? false : true, maxAge: 1*60*60*1000, sameSite: 'None'})
         res.json({ _id: user._id, name: user.name, email: user.email })
     }else{
         res.status(401).send("Unauthorized access!(incurrect password)")
